@@ -23,19 +23,21 @@ app.get('/', (req,res) => {
 })
 
 app.get('/productosC.ejs',  (req,res) => {
-    res.render('pages/productosC', {productos})
+    const prod = productos.getAll()
+    res.render('pages/productosC', {prod})
 })
 
 app.post ('/productos',  (req,res) => {
     const {title,price,thumbnail} = req.body
-    productos.save(title,price,thumbnail)
-    res.redirect('/', {productos})
+    const prod = productos.save(title,price,thumbnail)
+    res.redirect('/', {prod})
 })
 
 app.post('productosC.ejs', async (req,res) => {
     const {title,price,thumbnail} = req.body
-    productos.save(title,price,thumbnail)
-    res.redirect('/', {productos})
+    const prod = await productos.save(title,price,thumbnail)
+    
+    res.redirect('/', {prod})
 })
 
 
