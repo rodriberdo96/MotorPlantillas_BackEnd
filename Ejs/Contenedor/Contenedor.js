@@ -91,3 +91,5 @@ class Contenedor {
         }
     }
 }
+
+module.exports = Contenedor

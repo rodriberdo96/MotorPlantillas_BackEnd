@@ -12,17 +12,16 @@ const PORT = 8080
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 express.static('public')
+const routerProductos = express.Router()
 const productos = new Contenedor('productos.json')
+app.set ('views', './views')
+app.set ('view engine', 'hbs')
 app.engine ('hbs', handlebars.engine({
     extname: '.hbs',
     defaultLayout: 'index.hbs',
-    layoutsDir: __dirname + './views/layout',
-    partialsDir: __dirname + './views/partials'
+    layoutsDir:  'views/layout',
+    partialsDir:  '/views'
 }))
-
-app.set ('views', './views/layout')
-app.set ('view engine', 'hbs')
-
 
 //rutas
 app.get('/', (req,res) => {
@@ -30,20 +29,18 @@ app.get('/', (req,res) => {
 })
 
 
-app.get ('/productos', (req,res) => {
-    res.render('productos', {productos})
-})
+app.get ('/productos', routerProductos)
 
 
-app.post ('/productos',  (req,res) => {
-    productos.push (req.body)
-    console.log (productos)
-    res.redirect('/')
+routerProductos.get('/', async (req,res) => {
+    const productos = await productos.getAll()
+    res.render('historial', {productos})
 })
-app.post ('/historial.hbs',  (req,res) => {
-    productos.push (req.body)
-    console.log (productos)
-    res.redirect('/')
+
+routerProductos.post ('/', async (req,res) => {
+    const {title, price, thumbnail} = req.body
+    const producto = await productos.save(title, price, thumbnail)
+    res.render('historial', {producto})
 })
 
 

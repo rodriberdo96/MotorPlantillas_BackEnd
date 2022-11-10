@@ -13,32 +13,32 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 express.static('public')
 const productos = new Contenedor('productos.json')
-app.set ('views', './views/pages')
 app.set ('view engine', 'ejs')
 
 
 
 //rutas
 app.get('/', (req,res) => {
-    res.render('index', {productos})
+    res.render('pages/index', {productos})
 })
 
-
-app.get ('/productos', (req,res) => {
-    res.render('productos', {productos})
+app.get('/productosC.ejs',  (req,res) => {
+    res.render('pages/productosC', {productos})
 })
-
 
 app.post ('/productos',  (req,res) => {
-    productos.push (req.body)
-    console.log (productos)
-    res.redirect('/')
+    const {title,price,thumbnail} = req.body
+    productos.save(title,price,thumbnail)
+    res.redirect('/', {productos})
 })
-app.post ('/historial.ejs',  (req,res) => {
-    productos.push (req.body)
-    console.log (productos)
-    res.redirect('/')
+
+app.post('productosC.ejs', async (req,res) => {
+    const {title,price,thumbnail} = req.body
+    productos.save(title,price,thumbnail)
+    res.redirect('/', {productos})
 })
+
+
 
 
 // Levantar el servidor en el puerto indicado
