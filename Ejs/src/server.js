@@ -15,6 +15,8 @@ express.static('public')
 const productos = new Contenedor('productos.json')
 app.set ('view engine', 'ejs')
 
+
+
 //rutas
 app.get('/', (req,res) => {
     res.render('pages/index', {productos})
