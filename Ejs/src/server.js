@@ -15,29 +15,30 @@ express.static('public')
 const productos = new Contenedor('productos.json')
 app.set ('view engine', 'ejs')
 
-
-
 //rutas
 app.get('/', (req,res) => {
     res.render('pages/index', {productos})
 })
 
 app.get('/productosC.ejs',  (req,res) => {
-    const prod = productos.getAll()
-    res.render('pages/productosC', {prod})
+    productos.getAll().then((productos) => {
+        res.render('pages/productosC', {productos})
+    })  
+
 })
 
-app.post ('/productos',  (req,res) => {
+app.post ('/productos', async (req,res) => {
     const {title,price,thumbnail} = req.body
-    const prod = productos.save(title,price,thumbnail)
-    res.redirect('/', {prod})
+    const producto = {title,price,thumbnail}
+    const id = await productos.save(producto)
+    res.redirect('/productosC.ejs')
 })
 
 app.post('productosC.ejs', async (req,res) => {
     const {title,price,thumbnail} = req.body
-    const prod = await productos.save(title,price,thumbnail)
-    
-    res.redirect('/', {prod})
+    const producto = {title,price,thumbnail}
+    const id = await productos.save(producto)
+    res.redirect('/productosC.ejs')
 })
 
 
