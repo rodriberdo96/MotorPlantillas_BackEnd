@@ -34,7 +34,7 @@ app.post ('/productos',  (req,res) => {
     const {title, price, thumbnail} = req.body
     const producto = {title, price, thumbnail}
     const id = productos.save(producto)
-    res.render('index', {productos})
+    res.render('index', {id})
 })
 
 

@@ -26,8 +26,8 @@ class Contenedor {
             console.log(error)
         }
     }
-    async save( title,price, thumbnail) {
-            const productos = await this.getAll()
+    async save( title, price, thumbnail) {
+            const productos = JSON.parse(await fs.readFile (`./${this.route}`,'utf-8'))
             let newId;
             if(productos.length == 0){
                 newId = 1;
@@ -35,9 +35,9 @@ class Contenedor {
                 newId = productos[productos.length - 1].id + 1;
             }
             const newObj = {
-                title: title,
-                price: price,
-                thumbnail: thumbnail,
+                title,
+                price,
+                thumbnail,
                 id: newId}
             productos.push(newObj);
             try {

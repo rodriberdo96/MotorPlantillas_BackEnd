@@ -16,21 +16,5 @@
     "price": 345.67,
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
     "id": 3
-  },
-  {
-    "title": {
-      "title": "jabon",
-      "price": "1200",
-      "url": "https://http2.mlstatic.com/D_NQ_NP_2X_981720-MLA44382296413_122020-F.webp"
-    },
-    "id": 4
-  },
-  {
-    "title": {
-      "title": "regla",
-      "price": "200",
-      "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_2X_991736-MLA41292709827_032020-F.webp"
-    },
-    "id": 5
   }
 ]
