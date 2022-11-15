@@ -1,6 +1,6 @@
 //importaciones
 const express = require('express')
-const  Contenedor  = require('./../Contenedor/Contenedor.js')
+const  Contenedor  = require('./Contenedor/Contenedor.js')
 
 //instancias
 const app = express()
@@ -24,22 +24,19 @@ app.get('/', (req,res) => {
 })
 
 app.get ('/productos', (req,res) => {
-    res.render('productos', {productos})
+    productos.getAll().then((productos) => {
+        res.render('historial.pug', {productos})
+    })
 })
 
 
 app.post ('/productos',  (req,res) => {
     const {title, price, thumbnail} = req.body
-    productos.save (title, price, thumbnail)
-    console.log (productos)
-    res.redirect('/')
+    const producto = {title, price, thumbnail}
+    const id = productos.save(producto)
+    res.render('index', {productos})
 })
-app.post ('/historial.pug',  (req,res) => {
-    const {title, price, thumbnail} = req.body
-    productos.push (title, price, thumbnail)
-    console.log (productos)
-    res.redirect('/')
-})
+
 
 
 // Levantar el servidor en el puerto indicado
