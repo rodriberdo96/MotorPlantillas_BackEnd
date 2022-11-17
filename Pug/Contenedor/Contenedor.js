@@ -27,6 +27,7 @@ class Contenedor {
         }
     }
     async save( title, price, thumbnail) {
+        try {
             const productos = JSON.parse(await fs.readFile (`./${this.route}`,'utf-8'))
             let newId;
             if(productos.length == 0){
@@ -35,17 +36,16 @@ class Contenedor {
                 newId = productos[productos.length - 1].id + 1;
             }
             const newObj = {
-                title,
-                price,
-                thumbnail,
+                title: title,
+                price: price,
+                thumbnail: thumbnail,
                 id: newId}
             productos.push(newObj);
-            try {
-                await fs.writeFile(`./${this.route}`,JSON.stringify(productos, null, 2))
-                return (newObj)
-            } catch (error) {
-                return(error)
-            }
+            await fs.writeFile(`./${this.route}`,JSON.stringify(productos, null, 2))
+            return (newObj)
+        } catch (error) {
+            return(error)
+        }
     }
     async getById(id){
         try {

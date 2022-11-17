@@ -26,7 +26,7 @@ class Contenedor {
             console.log(error)
         }
     }
-    async save( title,price, thumbnail) {
+    async save(data) {
             const productos = await this.getAll()
             let newId;
             if(productos.length == 0){
@@ -35,9 +35,9 @@ class Contenedor {
                 newId = productos[productos.length - 1].id + 1;
             }
             const newObj = {
-                title: title,
-                price: price,
-                thumbnail: thumbnail,
+                title: data.title,
+                price: data.price,
+                thumbnail: data.thumbnail,
                 id: newId}
             productos.push(newObj);
             try {

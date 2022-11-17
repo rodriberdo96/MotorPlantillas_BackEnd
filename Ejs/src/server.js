@@ -30,18 +30,19 @@ app.get('/productosC.ejs',  (req,res) => {
 })
 
 app.post ('/productos', async (req,res) => {
-    const {title,price,thumbnail} = req.body
-    const producto = {title,price,thumbnail}
+    const data= req.body
+    const producto=data 
+    const id = await productos.save(producto)
+    res.render('pages/index', {productos})
+})
+
+app.post('productosC.ejs', async (req,res) => {
+    const data= req.body
+    const producto=data 
     const id = await productos.save(producto)
     res.redirect('/productosC.ejs')
 })
 
-app.post('productosC.ejs', async (req,res) => {
-    const {title,price,thumbnail} = req.body
-    const producto = {title,price,thumbnail}
-    const id = await productos.save(producto)
-    res.redirect('/productosC.ejs')
-})
 
 
 
