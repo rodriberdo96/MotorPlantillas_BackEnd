@@ -34,18 +34,12 @@ app.get('/productos',  (req,res) => {
 })
 
 app.post ('/productos', async (req,res) => {
-    const {title,price,thumbnail} = req.body
-    const producto = {title,price,thumbnail}
+    const data= req.body
+    const producto=data 
     const id = await productos.save(producto)
-    res.render('historial.hbs')
+    res.render('form', {productos})
 })
 
-app.post ('/productos', async (req,res) => {
-    const {title,price,thumbnail} = req.body
-    const producto = {title,price,thumbnail}
-    const id = await productos.save(producto)
-    res.render('form')
-})
 
 
 // Levantar el servidor en el puerto indicado

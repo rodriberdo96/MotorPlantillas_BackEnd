@@ -30,11 +30,11 @@ app.get ('/productos', (req,res) => {
 })
 
 
-app.post ('/productos',  (req,res) => {
-    const {title, price, thumbnail} = req.body
-    const producto = {title, price, thumbnail}
-    const id = productos.save(producto)
-    res.render('index', {id})
+app.post ('/productos', async (req,res) => {
+    const data= req.body
+    const producto=data 
+    const id = await productos.save(producto)
+    res.render('index', {productos})
 })
 
 
